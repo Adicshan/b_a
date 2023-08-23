@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {spawn}= require('child_process');
-const port = 3002;
+const port = process.env.PORT || 3002;
+const url= process.env.URL;
 const path =require('path');
 const app = express();
 app.use(bodyParser.json());
@@ -19,11 +20,13 @@ app.post('/tennis', (req, res) => {
   
   console.log(outlook);
   
-
-const pythonScriptPath = path.join(__dirname, '..', 'server', 'scripts', 'logisticRegression.py');
-
-const pythonProcess = spawn('python', [pythonScriptPath,outlook,temperature,humidity,windy]);
-
+  const pythonScriptPath = path.join(__dirname, '..', 'server', 'scripts', 'logisticRegression.py');
+  const scriptDirectory = path.dirname(pythonScriptPath);
+  
+  const pythonProcess = spawn('python', [pythonScriptPath, outlook, temperature, humidity, windy], {
+      cwd: scriptDirectory
+  });
+  
 
 
 pythonProcess.stdout.on('data',(data)=>{
@@ -71,4 +74,5 @@ ExamProcess.on('close',(code)=>{
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+  console.log(`${url}`);
 });
