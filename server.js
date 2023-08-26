@@ -36,6 +36,9 @@ app.post('/exam', (req, res) => {
     }
   });
 });
+app.get('/', (req, res) => {
+  res.send("hello world");
+});
 
 app.listen(port, () => {
   console.log(`Server is ng on port ${port}`);
