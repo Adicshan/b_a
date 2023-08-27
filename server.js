@@ -22,7 +22,7 @@ app.post('/exam', (req, res) => {
 
   const options = {
     mode: 'text',
-    pythonPath: 'python', // or 'python3' depending on your system
+    pythonPath: 'python3', // or 'python3' depending on your system
     pythonOptions: ['-u'], // unbuffered output
     scriptPath: path.dirname(pythonScriptPath),
     args: [toughness, hour, consist, syllabus, time],
