@@ -38,13 +38,11 @@ app.post('/exam', (req, res) => {
       res.status(500).send({ error: err });
     } else {
       console.log('Python output:', results);
-      res.status(200).json({ output: results });
+      res.send({ output: results });
     }
   });
 });
-app.get('/', (req, res) => {
-  res.send("hello world");
-});
+
 
 app.listen(port, () => {
   console.log(`Server is ng on port ${port}`);
